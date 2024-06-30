@@ -43,8 +43,8 @@ if uploaded_file is not None:
             ]
         )
 
-        results, importance = train_and_evaluate_model(
-            independent_var, model_choice)
+        results, importance = train_and_evaluate_model(data,
+                                                       independent_var, model_choice)
 
         # Step 4: Train and evaluate the model
         if st.button("Train and Evaluate Model"):

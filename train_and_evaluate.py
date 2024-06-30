@@ -23,10 +23,7 @@ def load_data(file_path):
 # Function to train and evaluate models
 
 
-def train_and_evaluate_model(independent_var, model_choice):
-    path = "studentPerformance.csv"
-    data = load_data(path)
-
+def train_and_evaluate_model(data, independent_var, model_choice):
     X = data.drop(columns=[independent_var])
     y = data[independent_var]
 
