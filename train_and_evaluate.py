@@ -100,7 +100,7 @@ def train_and_evaluate_model(independent_var, model_choice):
     return results, feature_importance
 
 
-results, importance = train_and_evaluate_model("GradeClass", "Random Forest")
-# print("Model Result:", results)
-# if importance is not None:
-#     print("Feature Importance:\n", importance)
+# results, importance = train_and_evaluate_model("GradeClass", "Random Forest")
+# # print("Model Result:", results)
+# # if importance is not None:
+# #     print("Feature Importance:\n", importance)
