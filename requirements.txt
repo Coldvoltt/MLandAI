@@ -1,7 +1,8 @@
 pandas
 numpy
 scikit-learn
-openai
+openai==1.34.0
 python-dotenv
-langchain
+langchain==0.2.2
+pydantic==2.5.2
 
