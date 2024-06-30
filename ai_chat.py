@@ -18,7 +18,7 @@ from langchain.memory import ConversationBufferMemory
 load_dotenv()
 
 # OpenAI API key
-openai.api_key = os.getenv("OPENAI_API_KEY")
+openai.api_key = os.getenv(OPENAI_API_KEY)
 
 # System message template
 sys_message = """
