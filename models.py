@@ -5,6 +5,7 @@ from sklearn.svm import SVC, SVR
 from sklearn.tree import DecisionTreeClassifier, DecisionTreeRegressor
 from sklearn.neighbors import KNeighborsClassifier, KNeighborsRegressor
 from sklearn.metrics import classification_report, confusion_matrix, mean_squared_error, r2_score
+import statsmodels.api as sm
 
 
 def train_linear_regression(X_train, y_train):
@@ -69,5 +70,15 @@ def evaluate_regression_model(model, X_test, y_test):
     predictions = model.predict(X_test)
     mse = mean_squared_error(y_test, predictions)
     r_squared = r2_score(y_test, predictions)
-    results = pd.DataFrame({"Actual": y_test, "Predicted": predictions})
-    return mse, r_squared, results
+    # Add a constant to the model for statsmodels
+    X_test_const = sm.add_constant(X_test)
+    sm_model = sm.OLS(y_test, X_test_const)
+    results = sm_model.fit()
+
+    # Create a regression results table
+    regression_table = pd.DataFrame({
+        "Metric": ["Mean Squared Error", "R Squared", "F-statistic", "P-value"],
+        "Value": [mse, r_squared, results.fvalue, results.f_pvalue]
+    })
+
+    return mse, r_squared, regression_table

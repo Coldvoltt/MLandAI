@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from preprocess import remove_id_columns
+from preprocess import prep_data
 from sklearn.model_selection import train_test_split
 from models import (
     train_linear_regression,
@@ -17,13 +17,14 @@ from models import (
 # Function to load and preprocess data
 def load_data(file_path):
     data = pd.read_csv(file_path)
-    data = remove_id_columns(data)
     return data
 
 # Function to train and evaluate models
 
 
 def train_and_evaluate_model(data, independent_var, model_choice):
+    data = prep_data(data, independent_var)
+
     X = data.drop(columns=[independent_var])
     y = data[independent_var]
 
@@ -36,6 +37,7 @@ def train_and_evaluate_model(data, independent_var, model_choice):
     model = None
     results = None
     feature_importance = None
+    r_squared = None
 
     if model_choice == "Linear Regression":
         model = train_linear_regression(X_train, y_train)
@@ -94,10 +96,16 @@ def train_and_evaluate_model(data, independent_var, model_choice):
         feature_importance = pd.Series(
             feature_importance, index=X.columns).sort_values(ascending=False)
 
-    return results, feature_importance
+    return results, feature_importance, r_squared
 
 
-# results, importance = train_and_evaluate_model("GradeClass", "Random Forest")
-# # print("Model Result:", results)
-# # if importance is not None:
-# #     print("Feature Importance:\n", importance)
+# df = load_data(
+#     "C:/Users/pauli/OneDrive/Desktop/weather_classification_data.csv")
+# # print(df)
+
+# results, importance, r_squared = train_and_evaluate_model(
+#     df, "Weather Type", "Random Forest")
+# print("Model Result:", results)
+# if importance is not None:
+#     print("Feature Importance:\n", importance)
+# print("R Squared:", r_squared)
